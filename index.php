@@ -1,9 +1,9 @@
 <?php
-session_start();
+ob_start();
+@session_start();
 
-define("VERSION","v2.0");
+define("VERSION","v2.1.2");
 
-include("core/getpagerank.php");
 include("core/mysql.class.php");
 include("core/layout.class.php");
 include("core/function.class.php");
@@ -33,7 +33,6 @@ $layout->top_header();
 <?php
 
 $page          = @$_GET['page'];
-$go_url        = @$_GET['go_url'];
 $action_admin  = @$_GET['admin'];
 
 $pages     = new Pages();
@@ -63,7 +62,7 @@ if(!(@$_GET['admin'])) {
 		break;
 		
 		case 'visita':
-			$functions->conta_click($go_url);
+			$functions->conta_click(@$_GET['go_url'], @$_POST['captcha']);
 		break;
 		
 		default: 
@@ -82,24 +81,30 @@ if(!(@$_GET['admin'])) {
 		
 		case 'add_site':
 			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {
-				$admin->add_site();
+				$admin->add_site(@$_GET['token']);
 			}else{	die("Non sei loggato come Admin"); }
 		break;
 		
 		case 'delete_site':
 			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
-				$admin->delete_site($_GET['id']);
+				$admin->delete_site(@$_GET['id'], @$_GET['token']);
+			}else{	die("Non sei loggato come Admin"); }
+		break;
+		
+		case 'reset_visit':
+			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
+				$admin->reset_visit(@$_GET['token']);
 			}else{	die("Non sei loggato come Admin"); }
 		break;
 		
 		case 'logout':
 			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
-				$admin->logout();
+				$admin->logout(@$_GET['token']);
 			}else{	die("Non sei loggato come Admin"); }
 		break;
 		
 		default:
-			echo "<script>alert(\"Admin Cazzone?\");</script>";
+			die(header('Location: index.php'));
 		break;
 	}
 }

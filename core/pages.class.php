@@ -108,8 +108,7 @@ class Pages extends Funzioni
 				$subject = $_POST['nome'];  
 				$message = $_POST['messaggio'];  
 				
-				@mail($mia_mail, $subject, $message, $headers);
-				if(mail)
+				if(@mail($mia_mail, $subject, $message, $headers))
 					echo '<script>alert("Messaggio inviato Correttamente!\n Inseriremo al piu presto il vostro sito e verrete avvisati tramite e-mail dell\'avvenuto inserimento");</script>';
 				else
 					echo "<script>alert(\"Errore durante l'invio del messaggio\");</script>";
@@ -118,7 +117,7 @@ class Pages extends Funzioni
 				echo "<h1>Attenzione : I seguenti errori sono stati riscontrati nella compilazione del modulo</h1><br />\n";  
 				// I messaggi di errore saranno visualizzati in un ciclo foreach  
 				foreach($errori as $error_message)  
-					echo "$error_message <br />\n";  
+					echo $error_message." <br />\n";  
 			
 				echo "Tornare <a href='javascript:history.back()'>indietro</a> e correggere.<br/> Grazie\n";  
 			}
@@ -134,7 +133,7 @@ class Pages extends Funzioni
 		  . "   </tr>\n"
 		  . "    <tr>\n"
 		  . "     <td>Versione Portale:</td>\n"
-		  . "     <td><code>v ".VERSION." </code></td>\n"
+		  . "     <td><code>".VERSION." </code></td>\n"
 		  . "   </tr>\n"
 		  . "   <tr>\n"
 		  . "     <td><WebMaster:</td>\n"
@@ -158,7 +157,7 @@ class Pages extends Funzioni
 		  . "   </tr>\n"
 		  . " </tbody>\n"
 		  . "</table>\n"
-		  . "<p>Note: Nella versione 1.x del portale era in collaborazione anche FL3` ma dalla 2.0 rinnovata interamente da me FL3` si è ritirato dalla rete e quindi ho ritenuto opportuno eliminarlo nel'about della 2.0</p>\n"
+		  . "<p>Note: Nella versione 1.x del portale era in collaborazione anche FL3` ma dalla 2.0 rinnovata interamente da me FL3` si è ritirato dalla rete e quindi ho ritenuto opportuno eliminarlo nell'about della 2.0</p>\n"
 		  ."<p>Sorgenti disponibili su <a href=\"http://github.com/KinG-InFeT/PageRank-Hack\">http://github.com/KinG-InFeT/PageRank-Hack</a></p>";
 	}
 		
@@ -242,9 +241,7 @@ class Pages extends Funzioni
 				$subject = $_POST['nome'];  
 				$message = $_POST['messaggio'];  
 				
-				@mail($mia_mail, $subject, $message, $headers);
-				
-				if(mail)
+				if(mail($mia_mail, $subject, $message, $headers))
 					echo "<script>alert(\"Messaggio Inviato Correttamente\");</script>";
 				else
 					echo "<script>alert(\"Errore durante l'invio del messaggio\");</script>";
@@ -253,7 +250,7 @@ class Pages extends Funzioni
 				echo "<h1>Attenzione : I seguenti errori sono stati riscontrati nella compilazione del modulo</h1><br />\n";  
 				// I messaggi di errore saranno visualizzati in un ciclo foreach  
 				foreach($errori as $error_message)  
-					echo "$error_message <br />\n";  
+					echo $error_message." <br />\n";  
 			
 				echo "Tornare <a href='javascript:history.back()'>indietro</a> e correggere.<br/> Grazie\n";
 			}

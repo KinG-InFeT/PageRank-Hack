@@ -1,0 +1,13 @@
+
+v2.1.2 - Bug Fix
+	[+] Aggiunta opzione "Resetta Visite"
+	[+] Fixed CSRF bugs in admin zone
+	[+] Fix Hijacking Vulnerability  Reporter By gabry9191
+	[+] Delete GetPageRank Function
+	[+] Added logout link
+	[+] Added Reset Visit link
+	[+] Added Captcha in count visit
+	[+] Fix 23 minor Bugs
+
+v2.0 - First Release
+	[=] Initial Release
