@@ -1,0 +1,20 @@
+~INSTALLAZIONE~
+
+1) Editare il file config.php con i dati per la connessione al tuo MySQL
+2) Editare il file config.php e inserire la password per l'accesso all'amministrazione
+3) Avviare le SQL nel vostro database tramite phpmyadmin
+
+SQL:
+ CREATE TABLE page_rank_hack (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	title_site TEXT NOT NULL,
+	site TEXT NOT NULL,
+	admin_site TEXT NOT NULL,
+	num_click INT NOT NULL
+) ENGINE = MYISAM;
+
+4) Uppare tutti i file nella root o in una dir del vostro spazio
+5) Godetevelo :D:D
+
+
+Powered By KinG-InFeT
