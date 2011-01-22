@@ -1,4 +1,7 @@
 
+v2.1.3 - Security
+	[+] Aggiunto controllo sulla pagina captcha.php per non farla linkare direttamente ;)
+
 v2.1.2 - Bug Fix
 	[+] Aggiunta opzione "Resetta Visite"
 	[+] Fixed CSRF bugs in admin zone

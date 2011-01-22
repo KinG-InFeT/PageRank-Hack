@@ -2,7 +2,7 @@
 ob_start();
 @session_start();
 
-define("VERSION","v2.1.2");
+define("VERSION","v2.1.3");
 
 include("core/mysql.class.php");
 include("core/layout.class.php");

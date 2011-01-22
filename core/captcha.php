@@ -1,4 +1,6 @@
 <?php
+if (preg_match("/captcha.php/i", $_SERVER['PHP_SELF'])) die("Non puoi linkare questa pagina direttamente!");
+
 @session_start();
 $text = rand(10000,99999);
 $_SESSION["captcha"] = $text;
