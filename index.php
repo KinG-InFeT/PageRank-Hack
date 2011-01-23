@@ -2,13 +2,14 @@
 ob_start();
 @session_start();
 
-define("VERSION","v2.1.3");
+define("VERSION","v2.1.4");
 
 include("core/mysql.class.php");
 include("core/layout.class.php");
 include("core/function.class.php");
 include("core/pages.class.php");
 include("core/admin.class.php");
+include("core/recaptchalib.php");
 
 $layout = new Layout();
 
@@ -80,27 +81,19 @@ if(!(@$_GET['admin'])) {
 		break;
 		
 		case 'add_site':
-			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {
-				$admin->add_site(@$_GET['token']);
-			}else{	die("Non sei loggato come Admin"); }
+			$admin->add_site(@$_GET['token']);
 		break;
 		
 		case 'delete_site':
-			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
-				$admin->delete_site(@$_GET['id'], @$_GET['token']);
-			}else{	die("Non sei loggato come Admin"); }
+			$admin->delete_site(@$_GET['id'], @$_GET['token']);
 		break;
 		
 		case 'reset_visit':
-			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
-				$admin->reset_visit(@$_GET['token']);
-			}else{	die("Non sei loggato come Admin"); }
+			$admin->reset_visit(@$_GET['token']);
 		break;
 		
 		case 'logout':
-			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {		
-				$admin->logout(@$_GET['token']);
-			}else{	die("Non sei loggato come Admin"); }
+			$admin->logout(@$_GET['token']);
 		break;
 		
 		default:

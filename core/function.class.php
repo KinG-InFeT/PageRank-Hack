@@ -38,11 +38,17 @@ class Funzioni extends MySQL
 	
 		$this->Open($db_host, $db_user, $db_pass, $db_name);
 
-		if(!empty($captcha))
+		if(@$_POST['send'] == 1)
 		{
 			//Anti Flood
-			if($captcha != $_SESSION['captcha'])
-				die("<br /><br /><center>Errore! Captcha Inserito non corretto! <br /><a href=\"index.php?page=visita&go_url=".@$_GET['go_url']."\">Riprova</a></center>");
+			$privatekey  = "6Lc7yMASAAAAANiJ4_F-BbnxvC3hUlxdAT85PCUE";
+			$userip      = $_SERVER["REMOTE_ADDR"];
+			$reCAPTCHA_f = $_POST["recaptcha_challenge_field"];$reCAPTCHA_r = $_POST["recaptcha_response_field"];
+			$resp        = recaptcha_check_answer($privatekey, $userip, $reCAPTCHA_f, $reCAPTCHA_r);
+			
+			if (!$resp->is_valid) {
+				die("<br /><br /><center>Errore! Captcha Inserito non corretto!\n<br />Errore reCaptcha: ".$resp->error."<br />\n<a href=\"index.php?page=visita&go_url=".@$_GET['go_url']."\">Riprova</a></center>");
+			}
 
 			//Hijacking control - Thanks gabry9191 for the bug
 			$this->check_url($url);
@@ -54,11 +60,15 @@ class Funzioni extends MySQL
 			$sql       = $this->Query("UPDATE `page_rank_hack` SET num_click = '{$app}' WHERE site = '{$url}'");
 			die(header('Location: '.$url));
 		}else{
+			$publickey = "6Lc7yMASAAAAAPYmegj3CxwkLJlg3demRNHEzsUd"; 
+
 			print "\n<center>"
 				. "\n<h2 align=\"center\">Captcha Security (Anti-Flood)</h2><br /><br />\n"
-				. "\n<form method=\"POST\" action=\"index.php?page=visita&go_url=".@$_GET['go_url']."\" />"
-				. "\n<img src=\"core/captcha.php\"><br />"
-				. "\n<input type=\"text\" name=\"captcha\" /><br />"
+				. "\n<form method=\"POST\" action=\"index.php?page=visita&go_url=".htmlspecialchars($_GET['go_url'])."\" />"
+				. "\n";
+			print recaptcha_get_html($publickey);
+			print "<br />"
+				. "\n<input type=\"hidden\" name=\"send\" value=\"1\" />"
 				. "\n<input type=\"submit\" value=\"Visita\" />"
 				. "\n</form>"
 				. "\n</center>"
