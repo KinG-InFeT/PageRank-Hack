@@ -2,8 +2,7 @@
 
 if (preg_match("/function.class.php/", $_SERVER['PHP_SELF'])) die(htmlspecialchars($_SERVER['PHP_SELF']));
 
-class Funzioni extends MySQL 
-{
+class Funzioni extends MySQL  {
 
 	public function check_email($email) {
     	$email = trim($email);
@@ -51,9 +50,9 @@ class Funzioni extends MySQL
 			}
 
 			//Hijacking control - Thanks gabry9191 for the bug
-			$this->check_url($url);
+			$this->check_url($this->mysql_parse($url));
 
-			$url       = mysql_real_escape_string($url);
+			$url       = $this->mysql_parse($url);
 			$num_click = $this->Query("SELECT `num_click` FROM page_rank_hack WHERE site = '{$url}'");
 			$row       = mysql_fetch_row($num_click);
 			$app       = $row[0] + 1;
@@ -100,17 +99,19 @@ class Funzioni extends MySQL
   		
 		while($row = mysql_fetch_array($ris)) {
 			print "   <tr>\n"
-			  . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['title_site']."</font></div></td>\n"
-			  . "      <td><div align=\"center\"><a target=\"_blank\" href=\"index.php?page=visita&go_url=".$row['site']."\">".$row['site']."</a></div></td>\n"
-			  . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['admin_site']."</font></div></td>\n"
-			  . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['num_click']."</font></div></td>\n";
+			    . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['title_site']."</font></div></td>\n"
+			    . "      <td><div align=\"center\"><a target=\"_blank\" href=\"index.php?page=visita&go_url=".$row['site']."\">".$row['site']."</a></div></td>\n"
+			    . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['admin_site']."</font></div></td>\n"
+			    . "      <td><div align=\"center\"><font color=\"#FF0000\">".$row['num_click']."</font></div></td>\n";
+			    
 			if(@$_SESSION['PageRank-Hack']['admin'] == $admin_password) {
 				print "     <td bgcolor=\"#00000\"><center><a href=\"?admin=delete_site&id=".$row['id']."&token=".$_SESSION['token']."\">Delete Site</a></center></td>\n";
 			}
-			  print "   </tr>\n";
+			
+			print "   </tr>\n";
 		}
 		print  "  </tbody>\n"
-			. "</table>\n";
+			 . "</table>\n";
 	}
 }		
 ?>

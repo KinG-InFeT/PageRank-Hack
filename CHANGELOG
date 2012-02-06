@@ -1,4 +1,7 @@
-
+v2.1.5
+    [+] Fix SQL Injection BUG #13 http://bit.ly/xA1HcM
+    [+] Various minor bug fix
+    
 v2.1.4
 	[+] Fix small XSS in conta_click() function
 	[+] Upgrade Captcha with reCaptcha (Anti-Bot)

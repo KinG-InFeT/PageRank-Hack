@@ -2,7 +2,7 @@
 ob_start();
 @session_start();
 
-define("VERSION","v2.1.4");
+define("VERSION","v2.1.5");
 
 include("core/mysql.class.php");
 include("core/layout.class.php");
@@ -33,9 +33,6 @@ $layout->top_header();
 			<div style="overflow:auto; width:900px; height: 350px; padding:15px"> 
 <?php
 
-$page          = @$_GET['page'];
-$action_admin  = @$_GET['admin'];
-
 $pages     = new Pages();
 $admin     = new Admin();
 $functions = new Funzioni();
@@ -44,7 +41,7 @@ if(!(@$_GET['admin'])) {
 	/*
 	 * Le varie pagine del portale :D
 	 */
-	switch($page) {
+	switch($_GET['page']) {
 
 		case 'banner': 
 			$pages->Banner(); 
@@ -74,7 +71,7 @@ if(!(@$_GET['admin'])) {
 	/*
 	 * Funzioni per l'amministratore
 	 */
-	switch($action_admin) {
+	switch($_GET['admin']) {
 	
 		case 'login':
 			$admin->login();
